@@ -22,6 +22,8 @@ find_package(trajectory_msgs REQUIRED)
 set(msg_files
   msg/ServoStatus.msg
   msg/GripperCommand.msg
+  msg/CustomMsg.msg
+  msg/CustomPoint.msg
 )
 
 set(action_files
