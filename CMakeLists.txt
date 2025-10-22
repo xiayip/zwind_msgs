@@ -31,6 +31,7 @@ set(action_files
 
 set(srv_files
   srv/ServoCommandType.srv
+  srv/RecordEndEffectorTF.srv
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
