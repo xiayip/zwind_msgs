@@ -19,20 +19,13 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 
-set(msg_files
-  msg/ServoStatus.msg
-  msg/GripperCommand.msg
-  msg/CustomMsg.msg
-  msg/CustomPoint.msg
-)
+file(GLOB msg_files RELATIVE ${PROJECT_SOURCE_DIR} "msg/*.msg")
+file(GLOB action_files RELATIVE ${PROJECT_SOURCE_DIR} "action/*.action")
+file(GLOB srv_files RELATIVE ${PROJECT_SOURCE_DIR} "srv/*.srv")
 
-set(action_files
-)
-
-set(srv_files
-  srv/ServoCommandType.srv
-  srv/RecordEndEffectorTF.srv
-)
+list(SORT msg_files)
+list(SORT action_files)
+list(SORT srv_files)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${action_files}
