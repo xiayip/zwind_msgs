@@ -1,6 +1,7 @@
 # Request constants
 bool clear_recording
-geometry_msgs/TransformStamped ee2base_tf
+string base_frame
+string target_frame
 ---
 # Response Field
 bool success
