@@ -6,23 +6,13 @@ string repo_id                    # HuggingFace dataset repo ID (e.g., "myuser/z
 string task_description           # Task description for this episode
 float32 episode_duration          # Episode recording duration in seconds (default: 60.0)
 float32 reset_duration            # Environment reset duration in seconds (default: 10.0)
-int32 fps                         # Recording FPS (default: 30)
-bool use_cameras                  # Whether to use cameras (default: true)
-bool display_visualization        # Whether to show rerun visualization (default: false)
-string action_type                # "joint_position" or "cartesian_pose" (default: "joint_position")
 
 ---
 # Result - Returned when recording completes
 bool success                      # Whether recording succeeded
-int32 frames_recorded            # Total number of frames recorded
-string episode_id                # Episode ID in dataset
 string message                   # Status message or error description
 
 ---
 # Feedback - Real-time progress updates during recording
-string status                    # Current status: "initializing", "waiting_for_data", "recording", "resetting", "saving"
-int32 current_frame             # Current frame number
-int32 total_frames              # Total expected frames for this episode
-float32 elapsed_time            # Elapsed time in seconds
-float32 remaining_time          # Estimated remaining time in seconds
-string current_phase            # "episode" or "reset"
+string status                    # Current status: "recording", "resetting", "saving", "pushing"
+float32 progress                 # Progress percentage 0.0-1.0
