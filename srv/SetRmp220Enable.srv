@@ -1,0 +1,5 @@
+bool enable
+---
+bool success
+uint8 sdk_result
+string message

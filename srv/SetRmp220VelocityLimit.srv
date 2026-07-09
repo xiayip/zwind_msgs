@@ -1,0 +1,9 @@
+float64 forward_max_velocity
+float64 backward_max_velocity
+float64 angular_max_velocity
+---
+bool success
+uint8 forward_result
+uint8 backward_result
+uint8 angular_result
+string message
