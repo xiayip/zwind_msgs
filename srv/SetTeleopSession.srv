@@ -1,0 +1,6 @@
+# Robot-internal session binding after recording a fresh anchor.
+# Empty ID revokes the current session and disables output.
+string session_id
+---
+bool success
+string message
