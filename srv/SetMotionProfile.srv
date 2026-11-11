@@ -1,0 +1,6 @@
+zephyr_msgs/MotionProfile profile
+---
+# Accepted means queued. Wait for motion_profile_status.applied before motion.
+bool accepted
+uint64 revision
+string message
