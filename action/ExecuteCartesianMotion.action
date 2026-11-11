@@ -1,0 +1,31 @@
+# Finite Cartesian motion. All poses refer to the configured MPC TCP.
+uint8 POSE=0
+uint8 RELATIVE=1
+uint8 PATH=2
+uint8 mode 0
+geometry_msgs/PoseStamped target
+# Translation in metres; rotation vector in radians, expressed in header.frame_id.
+# Empty frame uses the MPC reference frame; the TCP frame uses measured TCP axes.
+geometry_msgs/TwistStamped relative
+geometry_msgs/PoseStamped[] waypoints
+# Fraction of the configured reference velocity/acceleration/jerk limits (0, 1].
+float64 speed_scale 1.0
+float64 position_tolerance 0.005
+float64 orientation_tolerance 0.03
+float64 settle_time 0.2
+float64 timeout 30.0
+---
+bool success
+# Uses ControllerMotionStatus reason constants. NONE means successful arrival.
+uint16 reason
+string message
+geometry_msgs/PoseStamped actual
+float64 position_error
+float64 orientation_error
+---
+uint8 state
+geometry_msgs/PoseStamped actual
+geometry_msgs/PoseStamped target
+float64 position_error
+float64 orientation_error
+float64 elapsed
