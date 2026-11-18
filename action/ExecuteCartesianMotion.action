@@ -2,6 +2,9 @@
 uint8 POSE=0
 uint8 RELATIVE=1
 uint8 PATH=2
+# Opt-in continuous interpolation through waypoints; only whole-path ends stop.
+# Does not imply collision checking, constant speed, or online path replacement.
+uint8 CONTINUOUS_PATH=3
 uint8 mode 0
 geometry_msgs/PoseStamped target
 # Translation in metres; rotation vector in radians, expressed in header.frame_id.
@@ -13,7 +16,9 @@ float64 speed_scale 1.0
 float64 position_tolerance 0.005
 float64 orientation_tolerance 0.03
 float64 settle_time 0.2
-float64 timeout 30.0
+# 0: reference duration + settle_time + max(5 s, 25% of reference duration).
+# Positive: strict total wall-time deadline from acceptance, never auto-extended.
+float64 timeout 0.0
 ---
 bool success
 # Uses ControllerMotionStatus reason constants. NONE means successful arrival.
