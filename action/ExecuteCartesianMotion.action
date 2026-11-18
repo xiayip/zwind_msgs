@@ -19,6 +19,20 @@ float64 settle_time 0.2
 # 0: reference duration + settle_time + max(5 s, 25% of reference duration).
 # Positive: strict total wall-time deadline from acceptance, never auto-extended.
 float64 timeout 0.0
+
+# Optional whole-body extension: empty preserves TCP-only behavior.
+# POSE: one item; CONTINUOUS_PATH: one per waypoint. PATH/RELATIVE unsupported.
+# Same enabled components / posture names at every waypoint. Base frame must
+# match the MPC fixed reference frame (normally odom). No moving-frame targets.
+zephyr_msgs/WholeBodyReference[] whole_body_references
+# Nonnegative soft costs; zero disables that component. Not hard constraints.
+float64 base_position_weight 0.0
+float64 base_yaw_weight 0.0
+float64 posture_weight 0.0
+# Final base arrival gates when the corresponding weight > 0, in m / rad.
+# Posture is only a preference and does not gate success. TCP gates still apply.
+float64 base_position_tolerance 0.02
+float64 base_yaw_tolerance 0.03
 ---
 bool success
 # Uses ControllerMotionStatus reason constants. NONE means successful arrival.
@@ -27,6 +41,8 @@ string message
 geometry_msgs/PoseStamped actual
 float64 position_error
 float64 orientation_error
+float64 base_position_error
+float64 base_yaw_error
 ---
 uint8 state
 geometry_msgs/PoseStamped actual
@@ -34,3 +50,5 @@ geometry_msgs/PoseStamped target
 float64 position_error
 float64 orientation_error
 float64 elapsed
+float64 base_position_error
+float64 base_yaw_error
