@@ -1,0 +1,45 @@
+# Normalized actuator travel: 0 closed/retracted, 1 open/extended.
+# This is not a door-angle ratio. MOVE never homes or assumes a zero.
+uint8 MOVE=0
+uint8 CONFIRM_CLOSED=1
+uint8 CONFIRM_OPEN=2
+uint8 CLEAR_FAULT=3
+# Maintenance operations do not drive motors. Endpoint confirmation is explicit.
+uint8 operation
+float32 position
+---
+uint16 OK=0
+uint16 INVALID_TARGET=1
+uint16 BUSY=2
+uint16 STATUS_STALE=3
+uint16 UNREFERENCED=4
+uint16 NOT_READY=5
+uint16 CONTROLLER_FAULT=6
+uint16 COMMAND_REJECTED=7
+uint16 ACK_TIMEOUT=8
+uint16 SESSION_CHANGED=9
+uint16 MOTION_INTERRUPTED=10
+uint16 TIMEOUT=11
+uint16 CANCELED=12
+uint16 STOPPED=13
+uint16 INTERNAL_ERROR=14
+bool success
+uint16 error_code
+string<=128 message
+# Board controller diagnostics. No per-port fault attribution.
+uint8 controller_fault
+uint8 controller_ack
+uint8 controller_state
+bool position_valid
+# B, C; NaN if no fresh valid reference.
+float32[2] final_position
+# True only when the controller confirms both motor outputs disabled.
+bool stop_confirmed
+---
+float32 target_position
+float32[2] actuator_position
+bool position_valid
+uint8 controller_state
+uint8 controller_fault
+float32 synchronization_error
+float32 elapsed_sec

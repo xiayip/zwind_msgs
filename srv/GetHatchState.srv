@@ -1,0 +1,22 @@
+# Read-only snapshot. Never configures, homes, clears faults or drives motors.
+---
+uint8[3] firmware_version
+uint64 session
+uint32 uptime_ms
+uint8 controller_state
+uint8 controller_fault
+uint8 controller_ack
+bool calibration_valid
+bool position_valid
+# 0 unknown, 1 manually confirmed closed, 2 bench homed, 3 confirmed open.
+uint8 reference_source
+float32 target_position
+# B, C; NaN while position_valid is false.
+float32[2] actuator_position
+int64[2] encoder_count
+bool stop_confirmed
+# Bounded-memory health, for checking this small MCU after an upgrade.
+uint32 heap_used_bytes
+uint32 heap_peak_bytes
+uint32 heap_failures
+uint32 main_stack_free_bytes
