@@ -8,7 +8,8 @@ uint8 controller_fault
 uint8 controller_ack
 bool calibration_valid
 bool position_valid
-# 0 unknown, 1 manually confirmed closed, 2 bench homed, 3 confirmed open.
+# 0 unknown, 1 confirmed closed, 2 bench homed, 3 confirmed open,
+# 4 installed HOME with encoder out-and-back verification (not a limit input).
 uint8 reference_source
 float32 target_position
 # B, C; NaN while position_valid is false.
@@ -20,3 +21,12 @@ uint32 heap_used_bytes
 uint32 heap_peak_bytes
 uint32 heap_failures
 uint32 main_stack_free_bytes
+# Stable across Agent reconnects, changes on MCU reset (first session epoch token).
+uint64 boot_id
+uint8 STARTUP_AVAILABLE=0
+uint8 STARTUP_RUNNING=1
+uint8 STARTUP_SUCCEEDED=2
+uint8 STARTUP_FAILED=3
+uint8 STARTUP_SUPPRESSED=4
+# RAM-only, per MCU boot. Manual use also consumes startup eligibility.
+uint8 startup_home_state

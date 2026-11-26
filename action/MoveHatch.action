@@ -4,9 +4,20 @@ uint8 MOVE=0
 uint8 CONFIRM_CLOSED=1
 uint8 CONFIRM_OPEN=2
 uint8 CLEAR_FAULT=3
+uint8 HOME=4
+# Startup-only HOME, at most once per MCU boot; never clears faults.
+uint8 STARTUP_HOME=5
+# Firmware >= 0.11: HOME retracts, probes outward ~2 mm, then retracts again.
+# It establishes a closed reference only after encoder repeatability checks.
+# No independent limit input: a repeatable obstruction can resemble an endpoint.
 # Maintenance operations do not drive motors. Endpoint confirmation is explicit.
 uint8 operation
 float32 position
+# Required for STARTUP_HOME only: boot_id from a fresh GetHatchState response.
+# Manual operations leave this zero. Reject a request crossing an MCU reset.
+uint64 expected_boot_id
+# STARTUP_HOME only: expires in MCU uptime units; at most 3 s into the future.
+uint32 startup_deadline_uptime_ms
 ---
 uint16 OK=0
 uint16 INVALID_TARGET=1
@@ -23,6 +34,7 @@ uint16 TIMEOUT=11
 uint16 CANCELED=12
 uint16 STOPPED=13
 uint16 INTERNAL_ERROR=14
+# HOME success includes a valid zero with both outputs off (firmware >= 0.11).
 bool success
 uint16 error_code
 string<=128 message
